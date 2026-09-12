@@ -1604,6 +1604,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The app requests more device/OS permissions than it needs to function, increasing the impact if the app is compromised.",
         },
+        {
+          name: "Improper Restriction of Rendered UI Layers or Frames",
+          cwe: "CWE-1021",
+          description:
+            "The app doesn't defend against another app drawing an overlay on top of its UI (tapjacking), which can trick the user into tapping something other than what's displayed.",
+        },
       ],
     },
     {
@@ -1732,6 +1738,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The app doesn't properly validate/pin the server's TLS certificate, allowing a man-in-the-middle to intercept traffic.",
         },
+        {
+          name: "Improper Validation of Certificate with Host Mismatch",
+          cwe: "CWE-297",
+          description:
+            "The app validates that a certificate is signed by a trusted CA but never checks it was issued for the hostname it's actually connecting to, letting any valid cert from any domain be accepted.",
+        },
       ],
     },
     {
@@ -1799,6 +1811,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The app bundles a third-party SDK or library with known, unpatched vulnerabilities, or one that has stopped receiving security updates entirely.",
         },
+        {
+          name: "Embedded Malicious Code",
+          cwe: "CWE-506",
+          description:
+            "A bundled third-party SDK or library contains code that behaves maliciously (exfiltrating data, ad fraud, backdoor behavior) beyond its stated purpose.",
+        },
       ],
     },
     {
@@ -1859,6 +1877,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-926",
           description:
             "An app component (activity, service, content provider) is exported and reachable by other apps without proper permission checks.",
+        },
+        {
+          name: "Missing Authentication for Critical Function",
+          cwe: "CWE-306",
+          description:
+            "An exported app component (activity, service, broadcast receiver) performs a sensitive action without requiring the caller to authenticate first.",
         },
       ],
     },
@@ -1927,6 +1951,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-320",
           description:
             "Cryptographic keys are managed by custom, homegrown storage instead of the platform's hardware-backed keystore (Keychain/Keystore), weakening key protection.",
+        },
+        {
+          name: "Improper Access Control",
+          cwe: "CWE-284",
+          description:
+            "Cryptographic key material is accessible to other components or processes on the device beyond the ones that legitimately need it, because access to the keystore entry isn't restricted enough.",
         },
       ],
     },
@@ -2012,6 +2042,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The app isn't signed with a proper release key, or the app itself doesn't verify its own signing certificate, allowing a re-signed/modified APK/IPA to run undetected.",
         },
+        {
+          name: "Missing Support for Integrity Check",
+          cwe: "CWE-353",
+          description:
+            "The app has no mechanism to verify its own resources or runtime code haven't been modified since signing, so a repackaged/tampered APK/IPA runs without detection.",
+        },
       ],
     },
     {
@@ -2025,6 +2061,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-74",
           description:
             "Untrusted input reaches a native SQL query, WebView JS bridge, or shell command inside the app, allowing injection in the mobile execution context.",
+        },
+        {
+          name: "Improper Input Validation",
+          cwe: "CWE-20",
+          description:
+            "The app processes data from an untrusted source (IPC, deep link, file, clipboard) without validating its structure or content before acting on it.",
         },
       ],
     },
@@ -2085,6 +2127,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Device credentials are stored on-device or in the cloud backend without adequate protection, recoverable by anyone who gains access to the storage.",
         },
+        {
+          name: "Device Unlock Credential Sharing",
+          cwe: "CWE-1273",
+          description:
+            "The same unlock/debug credential is shared across an entire product line or batch, so recovering it from one unit compromises every other unit of that model.",
+        },
       ],
     },
     {
@@ -2139,6 +2187,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Firmware updates aren't signed/verified before being applied, and often travel unencrypted, letting an attacker push malicious firmware via MITM or a fake update server.",
         },
+        {
+          name: "Firmware Not Updateable",
+          cwe: "CWE-1277",
+          description:
+            "The device has no mechanism to receive firmware updates at all, so any vulnerability found after release can never be patched in already-deployed units.",
+        },
       ],
     },
     {
@@ -2158,6 +2212,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-829",
           description:
             "The firmware bundles a third-party component or library pulled in without vetting, inheriting whatever vulnerabilities or backdoors it contains.",
+        },
+        {
+          name: "Reliance on Component That is Not Updateable",
+          cwe: "CWE-1329",
+          description:
+            "The device depends on a third-party chip, module, or library that itself cannot be independently updated, tying the whole device's security lifecycle to a component the vendor doesn't control.",
         },
       ],
     },
@@ -2210,6 +2270,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "There's no inventory, patch status tracking, or decommissioning process for deployed devices, so compromised or end-of-life units go unnoticed indefinitely.",
         },
+        {
+          name: "Improper Scrubbing of Sensitive Data from Decommissioned Device",
+          cwe: "CWE-1266",
+          description:
+            "A device being retired, resold, or returned for warranty still contains recoverable credentials or user data because there's no secure wipe procedure before it leaves the owner's custody.",
+        },
       ],
     },
     {
@@ -2243,6 +2309,42 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-1191",
           description:
             "JTAG/UART/SWD debug interfaces are left enabled and accessible on the board, letting anyone with physical access dump firmware, extract keys, or gain a root shell.",
+        },
+        {
+          name: "Improper Protection of Physical Side Channels",
+          cwe: "CWE-1300",
+          description:
+            "The device's power consumption, electromagnetic emissions, or timing leak information about secret data being processed, letting an attacker recover keys or PINs via side-channel analysis without breaking the algorithm itself.",
+        },
+        {
+          name: "Improper Physical Access Control",
+          cwe: "CWE-1263",
+          description:
+            "Physical access to the device's internals (case, ports, test points) isn't restricted enough to prevent tampering, chip removal, or direct bus access.",
+        },
+        {
+          name: "Sensitive Non-Volatile Information Not Protected During Debug",
+          cwe: "CWE-1243",
+          description:
+            "Keys or other sensitive data stored in non-volatile memory remain readable through the debug interface instead of being locked out once debug access is enabled.",
+        },
+        {
+          name: "Internal Asset Exposed to Unsafe Debug Access Level or State",
+          cwe: "CWE-1244",
+          description:
+            "An internal asset (key material, memory region) is reachable at a debug access level that's less restrictive than what that asset actually requires.",
+        },
+        {
+          name: "Exposure of Sensitive System Information Due to Uncleared Debug Information",
+          cwe: "CWE-1258",
+          description:
+            "Debug registers or buffers retain sensitive data from normal operation and are readable after switching into a debug state, without being cleared first.",
+        },
+        {
+          name: "Missing Immutable Root of Trust in Hardware",
+          cwe: "CWE-1326",
+          description:
+            "The device has no hardware-anchored root of trust to bootstrap a secure boot chain, so its entire software stack can be replaced by an attacker with no cryptographic anchor to detect it.",
         },
       ],
     },
@@ -2352,6 +2454,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-829",
           description:
             "A PLC program block or library from an untrusted or unverified source is loaded onto the controller without review.",
+        },
+        {
+          name: "Improper Protection against Electromagnetic Fault Injection (EM-FI)",
+          cwe: "CWE-1319",
+          description:
+            "The controller's security logic (authentication check, safety interlock) can be disrupted by an electromagnetic fault injected from outside the chip package, skipping or corrupting the check.",
+        },
+        {
+          name: "Improper Protection Against Voltage and Clock Glitches",
+          cwe: "CWE-1247",
+          description:
+            "The controller doesn't detect or react to out-of-spec voltage or clock glitches, which an attacker can use to skip security-critical instructions (a classic technique against safety/authentication logic).",
         },
       ],
     },
