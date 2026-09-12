@@ -1,0 +1,225 @@
+@import "tailwindcss";
+@import "highlight.js/styles/atom-one-dark.css";
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.ProseMirror {
+  outline: none;
+  min-height: 180px;
+}
+
+.ProseMirror p {
+  margin: 0.5em 0;
+}
+
+/* Tailwind's preflight sets font-size: inherit on every heading level, so
+   without explicit sizes here h1-h6 all rendered at body text size (bold at
+   best) — no visual hierarchy at all. */
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0.75em 0 0.35em;
+}
+
+.ProseMirror h1 {
+  font-size: 1.6em;
+}
+
+.ProseMirror h2 {
+  font-size: 1.35em;
+}
+
+.ProseMirror h3 {
+  font-size: 1.15em;
+}
+
+.ProseMirror h4 {
+  font-size: 1.05em;
+}
+
+.ProseMirror h5 {
+  font-size: 0.95em;
+  color: rgb(212 212 212);
+}
+
+.ProseMirror h6 {
+  font-size: 0.85em;
+  color: rgb(163 163 163);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Tailwind's preflight only sets border-top-width on hr, with no
+   border-top-style — depending on the browser's UA default that's either
+   a barely-visible line or an inset 3D line that clashes with the flat
+   dark theme. */
+.ProseMirror hr {
+  margin: 1em 0;
+  border: none;
+  border-top: 1px solid rgb(64 64 64);
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.25em;
+}
+
+/* Tailwind's preflight resets ul/ol to list-style: none — restore markers
+   for real bullet/numbered lists (the task list further below stays
+   list-style: none via its own, more specific selector). */
+.ProseMirror ul {
+  list-style: disc;
+}
+
+.ProseMirror ol {
+  list-style: decimal;
+}
+
+.ProseMirror li {
+  display: list-item;
+}
+
+.ProseMirror li p {
+  margin: 0;
+}
+
+/* Tailwind's preflight zeroes out blockquote margin/padding and adds no
+   border — same invisible-but-functional issue as lists/tables above. */
+.ProseMirror blockquote {
+  margin: 0.5em 0;
+  padding: 0.25em 0 0.25em 0.9em;
+  border-left: 3px solid rgb(82 82 82);
+  color: rgb(163 163 163);
+  font-style: italic;
+}
+
+.ProseMirror blockquote p {
+  margin: 0.25em 0;
+}
+
+/* Tailwind's preflight resets <a> to color/text-decoration: inherit, so a
+   rendered link mark was indistinguishable from plain text. */
+.ProseMirror a {
+  color: rgb(52 211 153); /* emerald-400 */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ProseMirror a:hover {
+  color: rgb(110 231 183); /* emerald-300 */
+}
+
+.ProseMirror code {
+  background: rgb(38 38 38);
+  padding: 0.1em 0.35em;
+  border-radius: 0.25em;
+}
+
+.ProseMirror pre {
+  background: rgb(38 38 38);
+  padding: 0.75em;
+  padding-right: 5.5em; /* room for the language <select> in CodeBlockView, top-right */
+  border-radius: 0.375em;
+  overflow-x: auto;
+}
+
+/* CodeBlockView renders `code.hljs` for syntax highlighting (via the
+   atom-one-dark theme imported above) inside our own .ProseMirror pre box —
+   strip the theme's own background/padding so it doesn't double up with it. */
+.ProseMirror pre code.hljs {
+  background: transparent;
+  padding: 0;
+  display: inline;
+}
+
+.ProseMirror ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 0.25em;
+}
+
+.ProseMirror ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label {
+  margin-top: 0.2em;
+}
+
+.ProseMirror ul[data-type="taskList"] li > div {
+  flex: 1;
+}
+
+/* Table.configure({ resizable: true }) wraps the table in a .tableWrapper div
+   and injects .column-resize-handle / .selectedCell elements at drag/select
+   time — prosemirror-tables ships no styles for any of these itself (see
+   node_modules/prosemirror-tables/style/tables.css), so without the rules
+   below the resize handle and cell-selection highlight exist in the DOM but
+   render completely invisibly, same underlying issue as the bullet/numbered
+   list markers fixed above. */
+.ProseMirror .tableWrapper {
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+
+.ProseMirror table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  overflow: hidden;
+  --default-cell-min-width: 100px;
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid rgb(64 64 64);
+  padding: 0.35em 0.5em;
+  vertical-align: top;
+  position: relative;
+}
+
+.ProseMirror th:not([data-colwidth]):not(.column-resize-dragging),
+.ProseMirror td:not([data-colwidth]):not(.column-resize-dragging) {
+  min-width: var(--default-cell-min-width);
+}
+
+.ProseMirror th {
+  background: rgb(38 38 38);
+  font-weight: 600;
+  text-align: left;
+}
+
+.ProseMirror .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  z-index: 20;
+  background-color: rgb(16 185 129); /* emerald-500, matches the panel resize handle color */
+  pointer-events: none;
+}
+
+.ProseMirror.resize-cursor {
+  cursor: col-resize;
+}
+
+.ProseMirror .selectedCell:after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  inset: 0;
+  background: rgba(16, 185, 129, 0.25);
+  pointer-events: none;
+}
