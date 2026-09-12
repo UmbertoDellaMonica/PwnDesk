@@ -1,0 +1,73 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1c1c1f"/>
+      <stop offset="1" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3f3f46"/>
+      <stop offset="1" stop-color="#27272a"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+
+  <!-- App tile background (rounded square, transparent corners) -->
+  <rect x="0" y="0" width="1024" height="1024" rx="192" fill="url(#bg)"/>
+
+  <!-- Notebook -->
+  <g>
+    <!-- spiral binding strip -->
+    <rect x="248" y="216" width="56" height="592" rx="28" fill="#09090b"/>
+    <g fill="none" stroke="#71717a" stroke-width="10">
+      <circle cx="276" cy="256" r="16"/>
+      <circle cx="276" cy="316" r="16"/>
+      <circle cx="276" cy="376" r="16"/>
+      <circle cx="276" cy="436" r="16"/>
+      <circle cx="276" cy="496" r="16"/>
+      <circle cx="276" cy="556" r="16"/>
+      <circle cx="276" cy="616" r="16"/>
+      <circle cx="276" cy="676" r="16"/>
+      <circle cx="276" cy="736" r="16"/>
+    </g>
+
+    <!-- page -->
+    <rect x="292" y="200" width="484" height="624" rx="24" fill="url(#page)" stroke="#52525b" stroke-width="4"/>
+
+    <!-- ruled note lines -->
+    <g stroke="#a1a1aa" stroke-width="8" stroke-linecap="round" opacity="0.55">
+      <line x1="352" y1="300" x2="704" y2="300"/>
+      <line x1="352" y1="360" x2="704" y2="360"/>
+      <line x1="352" y1="420" x2="624" y2="420"/>
+    </g>
+
+    <!-- highlighted / redacted finding line -->
+    <rect x="352" y="468" width="304" height="38" rx="10" fill="#10b981" opacity="0.35"/>
+
+    <g stroke="#a1a1aa" stroke-width="8" stroke-linecap="round" opacity="0.55">
+      <line x1="352" y1="544" x2="704" y2="544"/>
+      <line x1="352" y1="604" x2="664" y2="604"/>
+    </g>
+  </g>
+
+  <!-- Shield badge with terminal prompt, overlapping the bottom-right corner -->
+  <g transform="translate(600,560)">
+    <path
+      d="M120 0 L228 40 L228 132 C228 220 176 276 120 300 C64 276 12 220 12 132 L12 40 Z"
+      fill="url(#shield)"
+      stroke="#022c22"
+      stroke-width="6"
+    />
+    <path
+      d="M64 128 L106 168 L64 208"
+      fill="none"
+      stroke="#022c22"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <line x1="120" y1="208" x2="176" y2="208" stroke="#022c22" stroke-width="18" stroke-linecap="round"/>
+  </g>
+</svg>
