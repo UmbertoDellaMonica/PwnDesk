@@ -42,6 +42,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Differences in application responses (error messages, timing, HTTP codes) let an attacker determine whether a given username/account exists.",
         },
+        {
+          name: "Observable Discrepancy",
+          cwe: "CWE-203",
+          description:
+            "The application behaves detectably differently (response content, timing, error code) depending on a secret or hidden condition, letting an attacker infer that condition through repeated probing.",
+        },
       ],
     },
     {
@@ -56,6 +62,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The authentication mechanism can be bypassed or subverted, letting an attacker assume another user's identity without valid credentials.",
         },
+        {
+          name: "Authentication Bypass by Capture-replay",
+          cwe: "CWE-294",
+          description:
+            "An attacker captures a valid authentication credential/token exchange and replays it later to authenticate without knowing the actual credential.",
+        },
+        {
+          name: "Improper Handling of Case Sensitivity",
+          cwe: "CWE-178",
+          description:
+            "The application treats input as case-sensitive (or insensitive) inconsistently with how a downstream component treats it, letting an attacker bypass a filter or check by changing letter case.",
+        },
       ],
     },
     {
@@ -69,6 +87,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-22",
           description:
             "User-controlled input is used to build a file path without proper sanitization, allowing access to files/directories outside the intended folder.",
+        },
+        {
+          name: "Improper Link Resolution Before File Access ('Link Following')",
+          cwe: "CWE-59",
+          description:
+            "The application accesses a file via a path without checking whether it's a symlink, letting an attacker redirect the operation to an unintended file by pre-planting a symlink.",
         },
       ],
     },
@@ -126,6 +150,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "User input is echoed back in the HTTP response without proper encoding, allowing attacker-controlled script to execute in the victim's browser.",
         },
+        {
+          name: "Improper Encoding or Escaping of Output",
+          cwe: "CWE-116",
+          description:
+            "Output is written to a downstream context (HTML, SQL, shell) without the encoding that context requires — the general root cause behind most injection/XSS findings.",
+        },
+        {
+          name: "Inappropriate Encoding for Output Context",
+          cwe: "CWE-838",
+          description:
+            "Data is encoded for one output context (e.g. HTML) but actually rendered into a different context (e.g. a JavaScript string or an HTML attribute) that requires different encoding rules, letting the mismatched encoding be bypassed.",
+        },
       ],
     },
     {
@@ -154,6 +190,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Unsanitized user input is passed to a system shell command, allowing arbitrary command execution on the host.",
         },
+        {
+          name: "Command Injection",
+          cwe: "CWE-77",
+          description:
+            "Unsanitized user input reaches a command interpreter other than the OS shell (a scripting engine, a CLI tool invoked with a crafted argument, etc.), letting an attacker inject additional commands.",
+        },
+        {
+          name: "Argument Injection",
+          cwe: "CWE-88",
+          description:
+            "User input reaches a command's argument list without neutralizing argument delimiters, letting an attacker inject additional command-line flags/arguments the developer didn't intend to expose.",
+        },
       ],
     },
     {
@@ -167,6 +215,24 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-209",
           description:
             "Verbose error messages or stack traces reveal internal implementation details (paths, queries, versions) useful to an attacker.",
+        },
+        {
+          name: "Improper Check for Unusual or Exceptional Conditions",
+          cwe: "CWE-754",
+          description:
+            "The code doesn't check for an unusual condition that can occur during normal operation, leading to undefined behavior when it does.",
+        },
+        {
+          name: "Improper Handling of Exceptional Conditions",
+          cwe: "CWE-755",
+          description:
+            "An exceptional condition is detected but handled incorrectly (swallowed, logged and ignored, or handled with the wrong recovery logic), leaving the application in an inconsistent state.",
+        },
+        {
+          name: "Unchecked Return Value",
+          cwe: "CWE-252",
+          description:
+            "The return value of a security-relevant function call is not checked, so the calling code proceeds as if it had succeeded regardless.",
         },
       ],
     },
@@ -237,6 +303,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-16",
           description:
             "Infrastructure components are deployed with insecure defaults, unnecessary open services, or missing hardening.",
+        },
+        {
+          name: "Use of Incorrectly-Resolved Name or Reference",
+          cwe: "CWE-706",
+          description:
+            "The application resolves a name (hostname, file path, DNS entry) to the wrong resource because the resolution logic doesn't account for how that name can be manipulated.",
         },
       ],
     },
@@ -319,6 +391,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-521",
           description: "The application allows short, common, or otherwise easily guessable passwords.",
         },
+        {
+          name: "Use of Password Hash With Insufficient Computational Effort",
+          cwe: "CWE-916",
+          description:
+            "Passwords are hashed with a fast, general-purpose hash instead of a slow, purpose-built one (bcrypt/scrypt/Argon2), making offline cracking of a leaked hash database far cheaper.",
+        },
       ],
     },
     {
@@ -347,6 +425,24 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The application fails to correctly enforce access control checks, letting a user perform actions or view data outside their permission level.",
         },
+        {
+          name: "Missing Authorization",
+          cwe: "CWE-862",
+          description:
+            "An endpoint or action performs no authorization check at all (as opposed to performing one incorrectly), so any authenticated — or even unauthenticated — request succeeds.",
+        },
+        {
+          name: "Incorrect Authorization",
+          cwe: "CWE-863",
+          description:
+            "An authorization check exists but is logically wrong (checks the wrong role, compares against the wrong resource owner, etc.), granting access it shouldn't.",
+        },
+        {
+          name: "Direct Request ('Forced Browsing')",
+          cwe: "CWE-425",
+          description:
+            "A resource or function is reachable directly by URL/endpoint without going through the intended access-controlled workflow that would normally gate it.",
+        },
       ],
     },
     {
@@ -359,6 +455,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           name: "Privilege Escalation",
           cwe: "CWE-269",
           description: "A low-privileged user can gain higher (e.g. admin) privileges through a flaw or missing check.",
+        },
+        {
+          name: "Improper Check for Dropped Privileges",
+          cwe: "CWE-273",
+          description:
+            "After voluntarily dropping elevated privileges, the application doesn't verify the drop actually succeeded before continuing, potentially proceeding with privileges it believes it no longer has.",
         },
       ],
     },
@@ -373,6 +475,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-614",
           description:
             "Session cookies are missing the Secure and/or HttpOnly attributes, exposing them to interception or client-side script access.",
+        },
+        {
+          name: "Reliance on Cookies without Validation and Integrity Checking",
+          cwe: "CWE-565",
+          description:
+            "Security-relevant decisions are made based on a cookie's value without verifying it hasn't been tampered with client-side.",
         },
       ],
     },
@@ -442,6 +550,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-611",
           description:
             "An XML parser resolves externally-defined entities from untrusted input, allowing file disclosure or server-side request forgery.",
+        },
+        {
+          name: "Improper Restriction of Recursive Entity References in DTDs ('XML Entity Expansion')",
+          cwe: "CWE-776",
+          description:
+            "An XML parser expands nested entity references without a depth/count limit, letting a small malicious document (a 'billion laughs' attack) exhaust memory or CPU.",
         },
       ],
     },
@@ -541,6 +655,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Keys, tokens, or nonces are generated with insufficient randomness, making them predictable or brute-forceable.",
         },
+        {
+          name: "Use of Insufficiently Random Values",
+          cwe: "CWE-330",
+          description:
+            "A value that must be unpredictable (token, ID, nonce) is generated with a source of randomness that isn't unpredictable enough, making it guessable.",
+        },
+        {
+          name: "Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)",
+          cwe: "CWE-335",
+          description:
+            "A PRNG is seeded with a predictable or reused value, making its entire output sequence predictable despite using an otherwise adequate algorithm.",
+        },
       ],
     },
     {
@@ -569,6 +695,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Unsanitized user input is used to build an XPath expression, letting an attacker alter XML document query logic.",
         },
+        {
+          name: "XML Injection (aka Blind XPath Injection)",
+          cwe: "CWE-91",
+          description:
+            "Untrusted input is embedded into XML content or structure without proper escaping, letting an attacker alter the XML document's meaning even without a full XPath query being built.",
+        },
       ],
     },
     {
@@ -582,6 +714,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-918",
           description:
             "The server can be made to issue attacker-controlled requests to internal or arbitrary destinations, exposing internal services or cloud metadata.",
+        },
+        {
+          name: "Externally Controlled Reference to a Resource in Another Sphere",
+          cwe: "CWE-610",
+          description:
+            "A reference to a resource (URL, file path, hostname) is taken from attacker-controlled input and dereferenced without restricting which resources it may point to.",
         },
       ],
     },
@@ -638,6 +776,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-530",
           description:
             "Backup, temp, or unreferenced files (.bak, .old, .zip) are left reachable on the web server, potentially exposing source code or data.",
+        },
+        {
+          name: "Files or Directories Accessible to External Parties",
+          cwe: "CWE-552",
+          description:
+            "Files or directories not meant to be publicly reachable (source control metadata, config, backups) are placed within the web root or another externally-reachable location.",
+        },
+        {
+          name: "Incomplete Cleanup",
+          cwe: "CWE-459",
+          description:
+            "Temporary files, cached credentials, or other artifacts created during an operation aren't removed once no longer needed, remaining reachable on disk indefinitely.",
         },
       ],
     },
@@ -737,6 +887,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Source or config file extensions (.php.bak, .env, .git) are served as plaintext instead of being blocked or processed, leaking their contents.",
         },
+        {
+          name: "Improper Removal of Sensitive Information Before Storage or Transfer",
+          cwe: "CWE-212",
+          description:
+            "Sensitive data embedded in a file, document, or object (metadata, hidden fields, revision history) isn't stripped before the file is shared or exported.",
+        },
       ],
     },
     {
@@ -764,6 +920,30 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-732",
           description:
             "Application files, config, or key material have overly permissive filesystem permissions, allowing unintended local access.",
+        },
+        {
+          name: "Exposure of Resource to Wrong Sphere",
+          cwe: "CWE-668",
+          description:
+            "A resource is made accessible to an actor or component that shouldn't have access to it, due to a mistake in how access boundaries were set up.",
+        },
+        {
+          name: "Incorrect Default Permissions",
+          cwe: "CWE-276",
+          description:
+            "A resource is created with default permissions that are broader than necessary, and nothing in the deployment process tightens them.",
+        },
+        {
+          name: "Improper Preservation of Permissions",
+          cwe: "CWE-281",
+          description:
+            "Permissions are not correctly carried over when a resource is copied, moved, or its ownership changes, potentially leaving it more exposed than intended.",
+        },
+        {
+          name: "Incorrect Resource Transfer Between Spheres",
+          cwe: "CWE-669",
+          description:
+            "A resource is transferred from one trust boundary or component to another without the checks appropriate for crossing that boundary, letting untrusted data or a privileged handle end up somewhere it shouldn't.",
         },
       ],
     },
@@ -1016,6 +1196,24 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Untrusted input is passed to a dynamic code evaluation function (eval, deserialization, template rendering), allowing arbitrary code execution.",
         },
+        {
+          name: "Expression Language Injection",
+          cwe: "CWE-917",
+          description:
+            "Untrusted input is evaluated as part of a server-side expression language statement (e.g. OGNL, SpEL), letting an attacker execute arbitrary expressions — often leading to remote code execution.",
+        },
+        {
+          name: "Improper Control of Dynamically-Managed Code Resources",
+          cwe: "CWE-913",
+          description:
+            "The application loads or executes code/resources selected dynamically based on attacker-influenceable input, without restricting what can be loaded.",
+        },
+        {
+          name: "Unsafe Reflection",
+          cwe: "CWE-470",
+          description:
+            "A class or method to instantiate/invoke is selected using attacker-controlled input via reflection, letting an attacker execute arbitrary classes present on the classpath.",
+        },
       ],
     },
     {
@@ -1043,6 +1241,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-444",
           description:
             "Inconsistent parsing of Content-Length/Transfer-Encoding between front-end proxy and back-end server lets an attacker smuggle a second hidden request.",
+        },
+        {
+          name: "Interpretation Conflict",
+          cwe: "CWE-436",
+          description:
+            "Two components in the request path (e.g. a proxy and a backend server) parse the same input differently, and an attacker crafts input that means one thing to the first component and another to the second.",
         },
       ],
     },
@@ -1072,6 +1276,36 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The application validates input for syntax but not for real-world business plausibility (e.g. negative quantities, absurd dates), allowing logic abuse.",
         },
+        {
+          name: "Improper Validation of Specified Quantity in Input",
+          cwe: "CWE-1284",
+          description:
+            "A quantity supplied in input (an amount, a count, a size) is used without validating it's within a sane range, letting an attacker submit an absurd value that breaks downstream logic.",
+        },
+        {
+          name: "Improper Neutralization of Formula Elements in a CSV File",
+          cwe: "CWE-1236",
+          description:
+            "Data a user controls is written into an exported CSV/spreadsheet without neutralizing leading formula characters (=, +, -, @), letting the formula execute when the file is opened in a spreadsheet application.",
+        },
+        {
+          name: "Incorrect Calculation",
+          cwe: "CWE-682",
+          description:
+            "A calculation central to a security decision (a price, a permission bitmask, a checksum) is implemented incorrectly, producing a wrong result that's then trusted.",
+        },
+        {
+          name: "Incorrect Comparison",
+          cwe: "CWE-697",
+          description:
+            "A comparison used for a security decision (equality of a token, a permission level) is implemented incorrectly, silently weakening the check.",
+        },
+        {
+          name: "Always-Incorrect Control Flow Implementation",
+          cwe: "CWE-670",
+          description:
+            "A block of logic meant to implement a specific control-flow decision is structured so it can never actually produce the intended outcome, silently defeating whatever check it was meant to enforce.",
+        },
       ],
     },
     {
@@ -1099,6 +1333,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-345",
           description:
             "Client-supplied values that should be tamper-proof (price, discount, signed state) aren't verified server-side, letting a client just change them.",
+        },
+        {
+          name: "Improper Validation of Integrity Check Value",
+          cwe: "CWE-354",
+          description:
+            "An integrity check value (checksum, HMAC, signature) is present but not actually validated correctly, giving a false sense of tamper protection.",
+        },
+        {
+          name: "Improper Enforcement of Message Integrity During Transmission",
+          cwe: "CWE-924",
+          description:
+            "Messages sent over a communication channel aren't protected against in-transit tampering, letting a network-positioned attacker modify them without detection.",
         },
       ],
     },
@@ -1128,6 +1374,42 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "An expensive operation (report generation, search, file processing) has no rate or resource limit, letting a single user exhaust server resources.",
         },
+        {
+          name: "Allocation of Resources Without Limits or Throttling",
+          cwe: "CWE-770",
+          description:
+            "The application allocates a resource (memory, file handles, DB connections, background jobs) in response to a request without capping how much a single client can consume.",
+        },
+        {
+          name: "Inefficient Regular Expression Complexity",
+          cwe: "CWE-1333",
+          description:
+            "A regular expression used against user-controlled input has catastrophic backtracking behavior, letting an attacker craft a short input that takes an extremely long time to match (ReDoS).",
+        },
+        {
+          name: "Uncontrolled Recursion",
+          cwe: "CWE-674",
+          description:
+            "A recursive function has no depth limit tied to untrusted input, letting an attacker trigger a stack exhaustion crash with deeply nested or self-referential input.",
+        },
+        {
+          name: "Excessive Iteration",
+          cwe: "CWE-834",
+          description:
+            "A loop's iteration count is derived from attacker-controlled input with no upper bound, letting an attacker force an excessively long-running operation.",
+        },
+        {
+          name: "Loop with Unreachable Exit Condition ('Infinite Loop')",
+          cwe: "CWE-835",
+          description:
+            "A loop's exit condition can never be satisfied for certain attacker-controlled input, hanging the thread/process indefinitely.",
+        },
+        {
+          name: "Inefficient Algorithmic Complexity",
+          cwe: "CWE-407",
+          description:
+            "An algorithm's time or space complexity scales poorly with attacker-controlled input size, letting a modestly sized input cause disproportionate resource consumption.",
+        },
       ],
     },
     {
@@ -1141,6 +1423,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-829",
           description:
             "The page loads and executes third-party JavaScript without integrity checks (no SRI, no vetting), letting a compromised third party run arbitrary script in-context.",
+        },
+        {
+          name: "Prototype Pollution",
+          cwe: "CWE-1321",
+          description:
+            "Attacker-controlled input is merged into an object without guarding against keys like __proto__, letting the attacker inject properties onto the base Object prototype shared by the whole application.",
         },
       ],
     },
@@ -1242,6 +1530,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Sensitive data (credentials, tokens, PII) is stored on the device in cleartext or in a location accessible to other apps/processes.",
         },
+        {
+          name: "SQL Injection (Local Database)",
+          cwe: "CWE-89",
+          description:
+            "Unsanitized input is concatenated into a query against the app's local SQLite database, letting a malicious input source (e.g. a shared file, IPC) manipulate on-device data.",
+        },
       ],
     },
     {
@@ -1270,6 +1564,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Logging out client-side doesn't properly invalidate the session/token server-side, allowing continued use of the old credentials.",
         },
+        {
+          name: "Insufficiently Protected Credentials",
+          cwe: "CWE-522",
+          description:
+            "Credentials or tokens are stored in SharedPreferences/UserDefaults/plist without hardware-backed encryption, recoverable by any process with local/root access.",
+        },
       ],
     },
     {
@@ -1283,6 +1583,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-319",
           description:
             "The app sends sensitive data over the network without adequate transport encryption (e.g. plain HTTP), exposing it to interception.",
+        },
+        {
+          name: "Improper Restriction of XML External Entity Reference",
+          cwe: "CWE-611",
+          description:
+            "The app parses XML received from the server without disabling external entity resolution, letting a compromised or MITM'd server trigger local file disclosure or SSRF from the device.",
         },
       ],
     },
@@ -1312,6 +1618,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Credentials, API keys, or secrets are embedded directly in the app binary/config and can be extracted via reverse engineering.",
         },
+        {
+          name: "Download of Code Without Integrity Check",
+          cwe: "CWE-494",
+          description:
+            "The app fetches and executes a plugin, script, or code update at runtime without verifying its signature, letting a compromised CDN or MITM position push malicious code.",
+        },
       ],
     },
     {
@@ -1325,6 +1637,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-693",
           description:
             "The app doesn't detect or react to running on a rooted/jailbroken device or under tampering, weakening its other security controls.",
+        },
+        {
+          name: "On-Chip Debug Interface With Improper Access Control",
+          cwe: "CWE-1191",
+          description:
+            "The device's JTAG/debug interface is left enabled and accessible, letting anyone with physical access to the hardware extract firmware or bypass software protections.",
         },
       ],
     },
@@ -1366,6 +1684,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-338",
           description:
             "The app uses a non-cryptographic PRNG for security-sensitive values (tokens, keys), making them predictable.",
+        },
+        {
+          name: "Use of Insufficiently Random Values",
+          cwe: "CWE-330",
+          description:
+            "A mobile-generated value that must be unpredictable (session token, one-time code) is derived from a source of randomness that isn't unpredictable enough.",
         },
       ],
     },
@@ -1515,6 +1839,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-927",
           description:
             "A deep link/intent handler accepts sensitive actions from any calling app without validating the caller, letting a malicious app trigger it.",
+        },
+        {
+          name: "URL Redirection to Untrusted Site ('Open Redirect')",
+          cwe: "CWE-601",
+          description:
+            "A deep link handler redirects to a URL taken from the link's parameters without validating it stays within the app's trusted domains.",
         },
       ],
     },
@@ -1749,6 +2079,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The device's admin interface accepts weak, default, or easily guessable passwords with no enforced complexity or forced change on first use.",
         },
+        {
+          name: "Insufficiently Protected Credentials",
+          cwe: "CWE-522",
+          description:
+            "Device credentials are stored on-device or in the cloud backend without adequate protection, recoverable by anyone who gains access to the storage.",
+        },
       ],
     },
     {
@@ -1762,6 +2098,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-16",
           description:
             "The device exposes network services (Telnet, unauthenticated debug ports, UPnP) beyond what its function requires, widening the remote attack surface.",
+        },
+        {
+          name: "Improper Access Control",
+          cwe: "CWE-284",
+          description:
+            "A network service exposed by the device performs a sensitive action without adequately verifying the caller is authorized to request it.",
         },
       ],
     },
@@ -1811,6 +2153,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The firmware bundles an outdated OS, kernel, or library (BusyBox, OpenSSL, etc.) with publicly known, unpatched vulnerabilities.",
         },
+        {
+          name: "Inclusion of Functionality from Untrusted Control Sphere",
+          cwe: "CWE-829",
+          description:
+            "The firmware bundles a third-party component or library pulled in without vetting, inheriting whatever vulnerabilities or backdoors it contains.",
+        },
       ],
     },
     {
@@ -1824,6 +2172,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-359",
           description:
             "The device or its companion app collects more personal data than necessary, or shares it with third parties, without adequate protection or user consent.",
+        },
+        {
+          name: "Improper Removal of Sensitive Information Before Storage or Transfer",
+          cwe: "CWE-212",
+          description:
+            "Telemetry or diagnostic data uploaded to the vendor's cloud retains more identifying/sensitive detail than the stated purpose requires.",
         },
       ],
     },
@@ -1915,6 +2269,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Traffic between security zones (per IEC 62443 zone/conduit design) isn't restricted to the specific conduits and protocols actually needed.",
         },
+        {
+          name: "Exposure of Resource to Wrong Sphere",
+          cwe: "CWE-668",
+          description:
+            "An OT-segment resource (HMI, historian, engineering workstation) is reachable from the IT network or the internet due to a segmentation boundary that isn't actually enforced.",
+        },
       ],
     },
     {
@@ -1934,6 +2294,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-319",
           description:
             "Control traffic travels unencrypted across the OT network, letting an attacker on the same segment observe or replay commands.",
+        },
+        {
+          name: "Insufficient Verification of Data Authenticity",
+          cwe: "CWE-345",
+          description:
+            "The industrial protocol accepts control commands without verifying they genuinely originated from an authorized engineering station.",
         },
       ],
     },
@@ -1955,6 +2321,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "The HMI or SCADA supervisory software still uses its vendor-supplied default account and password.",
         },
+        {
+          name: "Insufficiently Protected Credentials",
+          cwe: "CWE-522",
+          description:
+            "Operator/engineer credentials for the HMI or SCADA software are stored or transmitted without adequate protection, recoverable from the workstation.",
+        },
       ],
     },
     {
@@ -1974,6 +2346,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-494",
           description:
             "The controller doesn't verify a cryptographic signature before accepting a firmware update, allowing malicious firmware to be flashed.",
+        },
+        {
+          name: "Inclusion of Functionality from Untrusted Control Sphere",
+          cwe: "CWE-829",
+          description:
+            "A PLC program block or library from an untrusted or unverified source is loaded onto the controller without review.",
         },
       ],
     },
@@ -1995,6 +2373,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "An integrator or vendor left an undocumented remote-access account or modem active after commissioning, unknown to the asset owner's security team.",
         },
+        {
+          name: "Use of Single-factor Authentication",
+          cwe: "CWE-308",
+          description:
+            "Remote access into the OT environment relies on a password alone, with no second factor, for an access path that reaches safety-critical systems.",
+        },
       ],
     },
     {
@@ -2013,6 +2397,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           name: "Missing Fail-Safe State on Communication Loss",
           description:
             "A controller or actuator doesn't fall back to a defined safe state when it loses communication with its controlling system, risking unpredictable physical behavior during an attack or outage.",
+        },
+        {
+          name: "Improper Restriction of Power Consumption",
+          cwe: "CWE-920",
+          description:
+            "The device doesn't limit operations that consume significant power, letting an attacker remotely drain a battery-powered device's power supply well ahead of its expected lifetime.",
         },
       ],
     },
@@ -2062,6 +2452,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Document metadata, code commit history, or job postings reveal internal usernames, software versions, or infrastructure details useful for a targeted attack.",
         },
+        {
+          name: "Improper Removal of Sensitive Information Before Storage or Transfer",
+          cwe: "CWE-212",
+          description:
+            "Publicly available documents or exported files retain metadata (author names, internal paths, revision history) that wasn't stripped before release.",
+        },
       ],
     },
     {
@@ -2099,6 +2495,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "A scanned service negotiates or defaults to a broken/deprecated cryptographic algorithm or protocol version.",
         },
+        {
+          name: "Exposure of Resource to Wrong Sphere",
+          cwe: "CWE-668",
+          description:
+            "A scan turns up a resource (share, service, admin panel) reachable by a broader audience than intended, due to a boundary that was never correctly set up.",
+        },
       ],
     },
     {
@@ -2128,6 +2530,18 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-502",
           description:
             "An endpoint deserializes attacker-controlled data without validation, allowing object injection that leads to remote code execution.",
+        },
+        {
+          name: "Improper Restriction of XML External Entity Reference",
+          cwe: "CWE-611",
+          description:
+            "An exposed endpoint parses attacker-supplied XML without disabling external entity resolution, providing a path to file disclosure or internal network access.",
+        },
+        {
+          name: "Server-Side Request Forgery (SSRF)",
+          cwe: "CWE-918",
+          description:
+            "An exploitable endpoint can be made to issue requests to internal or arbitrary destinations on the attacker's behalf.",
         },
       ],
     },
@@ -2166,6 +2580,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-269",
           description:
             "An attacker with initial access can install a scheduled task, service, or startup entry that survives reboot, without this being detected or alerted on.",
+        },
+        {
+          name: "Use of Hard-coded Credentials",
+          cwe: "CWE-798",
+          description:
+            "Credentials hardcoded in a config file, script, or binary found on a compromised host provide a path to further systems.",
         },
       ],
     },
@@ -2209,6 +2629,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Staff haven't received (or don't retain) security awareness training, leaving them unprepared to recognize common social engineering attempts.",
         },
+        {
+          name: "Weak Password Recovery Mechanism for Forgotten Password",
+          cwe: "CWE-640",
+          description:
+            "Help-desk or self-service password recovery relies on information an attacker can obtain through social engineering or public research.",
+        },
       ],
     },
     {
@@ -2231,6 +2657,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           name: "Inadequate Visitor Management Process",
           description:
             "Visitors/contractors can move through the facility unescorted or without a verifiable badge/log, undermining any other physical control in place.",
+        },
+        {
+          name: "Use of Weak Credentials",
+          cwe: "CWE-1391",
+          description:
+            "Physical access codes (door PINs, badge system defaults) are weak, shared, or never rotated after staff turnover.",
         },
       ],
     },
@@ -2257,6 +2689,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Devices on the same wireless network/SSID can reach each other directly, letting a compromised guest device attack other clients on the same network.",
         },
+        {
+          name: "Use of Hard-coded Credentials",
+          cwe: "CWE-798",
+          description:
+            "Wireless access point or IoT radio firmware ships with a hardcoded pre-shared key or admin credential common to an entire product line.",
+        },
       ],
     },
     {
@@ -2280,6 +2718,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-319",
           description:
             "VoIP signaling and/or media streams travel unencrypted, allowing eavesdropping on calls or SIP credential theft from the same network segment.",
+        },
+        {
+          name: "Missing Authentication for Critical Function",
+          cwe: "CWE-306",
+          description:
+            "A PBX or telephony management interface performs administrative actions without requiring authentication.",
         },
       ],
     },
@@ -2306,6 +2750,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description:
             "Any device plugged into a wired port (or joining the network) gets network access without authenticating first, letting a rogue device onto the internal network.",
         },
+        {
+          name: "Incorrect Permission Assignment for Critical Resource",
+          cwe: "CWE-732",
+          description:
+            "Network device configuration/management access is left with overly permissive file or service permissions, letting a local low-privilege account read or alter it.",
+        },
       ],
     },
     {
@@ -2323,6 +2773,12 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           name: "Undocumented Data Retention Policy",
           description:
             "There's no documented (or enforced) policy for how long sensitive data is retained, risking indefinite accumulation of data that increases breach impact.",
+        },
+        {
+          name: "Insufficient Logging & Monitoring",
+          cwe: "CWE-778",
+          description:
+            "Actions on regulated data aren't logged in enough detail to reconstruct who accessed what, failing common compliance audit requirements.",
         },
       ],
     },
@@ -2404,6 +2860,60 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           cwe: "CWE-400",
           description: "A discovered weakness can be pushed to exhaust a service's resources, denying it to legitimate users.",
         },
+        {
+          name: "Race Condition",
+          cwe: "CWE-362",
+          description:
+            "Two or more threads/processes access a shared resource without proper synchronization, letting an attacker win a timing race to corrupt data or bypass a check.",
+        },
+        {
+          name: "Time-of-check Time-of-use (TOCTOU) Race Condition",
+          cwe: "CWE-367",
+          description:
+            "A security check and the actual use of that resource happen at different times, letting an attacker swap the resource out in between.",
+        },
+        {
+          name: "Improper Synchronization",
+          cwe: "CWE-662",
+          description:
+            "Concurrent access to a shared resource isn't properly synchronized, leading to inconsistent or corrupted state under concurrent load.",
+        },
+        {
+          name: "Improper Locking",
+          cwe: "CWE-667",
+          description:
+            "A lock intended to protect a shared resource is acquired or released incorrectly, allowing a race condition or deadlock.",
+        },
+        {
+          name: "Missing Release of Memory after Effective Lifetime",
+          cwe: "CWE-401",
+          description:
+            "Allocated memory is never freed once it's no longer needed, letting an attacker who can trigger the allocation repeatedly exhaust available memory.",
+        },
+        {
+          name: "Missing Release of Resource after Effective Lifetime",
+          cwe: "CWE-772",
+          description:
+            "A non-memory resource (file handle, socket, DB connection) is never released once no longer needed, letting an attacker exhaust that resource pool.",
+        },
+        {
+          name: "Untrusted Search Path",
+          cwe: "CWE-426",
+          description:
+            "The application searches for an executable/library/config file using a path influenced by an untrusted source, letting an attacker plant a malicious file earlier in the search order.",
+        },
+        {
+          name: "Uncontrolled Search Path Element",
+          cwe: "CWE-427",
+          description:
+            "An element of the search path used to locate executables/libraries is writable by users with lower privilege than the application, letting them hijack what gets loaded.",
+        },
+        {
+          name: "Unquoted Search Path or Element",
+          cwe: "CWE-428",
+          description:
+            "A path containing spaces is used without quoting, letting an attacker who can write to an intermediate directory have their own executable run instead of the intended one.",
+        },
       ],
     },
     {
@@ -2484,9 +2994,153 @@ export const TEST_CATALOG: Record<MethodologyId, TestCase[]> = {
           description: "A network service copies attacker-controlled input into a fixed-size buffer without bounds checking, potentially allowing memory corruption and code execution.",
         },
         {
+          name: "Stack-based Buffer Overflow",
+          cwe: "CWE-121",
+          description: "A stack-allocated buffer is overrun by attacker-controlled input, letting an attacker overwrite the return address or adjacent stack data to hijack control flow.",
+        },
+        {
+          name: "Heap-based Buffer Overflow",
+          cwe: "CWE-122",
+          description: "A heap-allocated buffer is overrun by attacker-controlled input, corrupting heap metadata or adjacent allocations in a way that can lead to code execution.",
+        },
+        {
+          name: "Out-of-bounds Write",
+          cwe: "CWE-787",
+          description: "The service writes data past the boundary of an allocated buffer, a memory-corruption primitive that underlies most native-code buffer overflow exploits.",
+        },
+        {
+          name: "Out-of-bounds Read",
+          cwe: "CWE-125",
+          description: "The service reads data past the boundary of an allocated buffer, potentially disclosing adjacent memory (credentials, keys, pointers useful for further exploitation).",
+        },
+        {
+          name: "Use After Free",
+          cwe: "CWE-416",
+          description: "The service continues to use a pointer after the memory it references has been freed, which an attacker can exploit by reallocating that memory with controlled content.",
+        },
+        {
+          name: "NULL Pointer Dereference",
+          cwe: "CWE-476",
+          description: "The service dereferences a pointer expected to be non-null without checking, crashing the process — at minimum a denial-of-service, and a common precursor to further exploitation on some platforms.",
+        },
+        {
           name: "Insecure Deserialization",
           cwe: "CWE-502",
           description: "An assessed application or service deserializes untrusted data without validation, allowing object injection or remote code execution.",
+        },
+        {
+          name: "Improper Validation of Array Index",
+          cwe: "CWE-129",
+          description:
+            "An array is accessed using an index computed from untrusted input without validating it's within bounds, allowing out-of-bounds reads or writes.",
+        },
+        {
+          name: "Improper Restriction of Operations within the Bounds of a Memory Buffer",
+          cwe: "CWE-119",
+          description:
+            "The umbrella weakness behind most buffer overflows: an operation reads or writes memory outside the buffer's allocated bounds.",
+        },
+        {
+          name: "Access of Uninitialized Pointer",
+          cwe: "CWE-824",
+          description:
+            "A pointer is dereferenced before being initialized to a valid memory location, leading to a crash or, if the uninitialized value is attacker-influenceable, arbitrary code execution.",
+        },
+        {
+          name: "Improper Initialization",
+          cwe: "CWE-665",
+          description:
+            "A resource (variable, object, security control) is used before it has been properly initialized, potentially leaving it in an insecure default state.",
+        },
+        {
+          name: "Use of Uninitialized Resource",
+          cwe: "CWE-908",
+          description:
+            "A resource is used before its value or state has been explicitly set, which can expose leftover data from a previous use or cause unpredictable behavior.",
+        },
+        {
+          name: "Missing Initialization of Resource",
+          cwe: "CWE-909",
+          description:
+            "A resource that requires explicit initialization before use is never initialized, leaving it in an undefined or insecure state.",
+        },
+        {
+          name: "Incorrect Calculation of Buffer Size",
+          cwe: "CWE-131",
+          description:
+            "A buffer is allocated using a size computed incorrectly (off-by-one, wrong unit, integer overflow in the size expression), leaving too little space for what's later written into it.",
+        },
+        {
+          name: "Integer Overflow or Wraparound",
+          cwe: "CWE-190",
+          description:
+            "An arithmetic operation produces a value larger than the integer type can hold, wrapping around to a small or negative number that can then be used unsafely as a buffer size or index.",
+        },
+        {
+          name: "Integer Underflow (Wrap or Wraparound)",
+          cwe: "CWE-191",
+          description:
+            "An arithmetic operation produces a value smaller than the integer type's minimum, wrapping around to a large positive number that can then be used unsafely.",
+        },
+        {
+          name: "Off-by-one Error",
+          cwe: "CWE-193",
+          description:
+            "A loop, buffer index, or size calculation is off by exactly one element, commonly causing a one-byte buffer overflow or a skipped/duplicated iteration.",
+        },
+        {
+          name: "Divide By Zero",
+          cwe: "CWE-369",
+          description:
+            "The application divides a value by a quantity that can be attacker-controlled and reach zero, crashing the process.",
+        },
+        {
+          name: "Incorrect Type Conversion or Cast",
+          cwe: "CWE-704",
+          description:
+            "A value is cast or converted between incompatible types without proper validation, which can corrupt data or, in native code, memory.",
+        },
+        {
+          name: "Incorrect Conversion between Numeric Types",
+          cwe: "CWE-681",
+          description:
+            "Converting between numeric types (signed to unsigned, wide to narrow) truncates or reinterprets the value in a way the code didn't account for.",
+        },
+        {
+          name: "Access of Resource Using Incompatible Type ('Type Confusion')",
+          cwe: "CWE-843",
+          description:
+            "Memory or an object allocated as one type is later accessed as a different, incompatible type, letting an attacker manipulate the misinterpreted memory layout.",
+        },
+        {
+          name: "Double Free",
+          cwe: "CWE-415",
+          description:
+            "The same block of allocated memory is freed twice, corrupting the memory allocator's internal state in a way that can be leveraged for code execution.",
+        },
+        {
+          name: "Operation on a Resource after Expiration or Release",
+          cwe: "CWE-672",
+          description:
+            "The application continues to operate on a resource (memory, file handle, session) after it has already been released or expired.",
+        },
+        {
+          name: "Reachable Assertion",
+          cwe: "CWE-617",
+          description:
+            "An assertion intended only to catch programming errors during development is reachable with attacker-controlled input in production, crashing the process when it fires.",
+        },
+        {
+          name: "Improper Resource Shutdown or Release",
+          cwe: "CWE-404",
+          description:
+            "A resource (network connection, file handle, lock) isn't properly shut down or released after its use ends — the general weakness behind more specific memory/handle leak findings.",
+        },
+        {
+          name: "Release of Invalid Pointer or Reference",
+          cwe: "CWE-763",
+          description:
+            "A pointer or reference is released to a memory management routine that doesn't actually own it, corrupting the allocator's internal state.",
         },
       ],
     },

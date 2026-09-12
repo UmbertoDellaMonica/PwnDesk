@@ -49,8 +49,12 @@ Living document. Updated whenever a feature area is audited or changed. Organize
 
 ### Methodology / Test catalog
 - 9 methodologies: PTES, OWASP WSTG, OWASP MASTG, OWASP IoT Top 10 (new), ICS/OT (new, informed by NIST SP 800-82 / IEC 62443), OSSTMM, NIST SP 800-115, ISSAF, plus "None/custom".
-- 157 test cases, 91 distinct CWEs. PTES/OSSTMM/NIST/ISSAF previously had phases listed in their category list with **zero** test cases behind some of them (e.g. PTES "Threat Modeling"/"Reporting" were empty) — filled in.
+- 157 test cases, **174 distinct CWEs** (up from an initial 44). PTES/OSSTMM/NIST/ISSAF previously had phases listed in their category list with **zero** test cases behind some of them (e.g. PTES "Threat Modeling"/"Reporting" were empty) — filled in.
 - **CWE accuracy pass**: cross-checked every non-obvious CWE mapping against cwe.mitre.org. Found and fixed 4 wrong mappings (two uses of CWE-1327 "Binding to an Unrestricted IP Address" misused for "unnecessary open service" → corrected to CWE-16; CWE-620 "Unverified Password Change" misused for registration identity → removed rather than force a bad fit; CWE-315 "Cleartext Storage... in a Cookie" misused for URL-exposed session data → corrected to CWE-598).
+- **Full CWE Top 25 (2025, CISA/MITRE) coverage** — cross-checked against the official ranked list (39,080 CVEs analyzed); added the 10 entries that were missing (mostly memory-safety: stack/heap buffer overflow, use-after-free, out-of-bounds read/write, null pointer dereference; plus Missing/Incorrect Authorization and generic Command Injection).
+- **100% coverage of CWE View-1003** ("Weaknesses for Simplified Mapping of Published Vulnerabilities" — MITRE's own curated list for mapping real CVEs to CWEs, 130 members). Started at 43.8%; added 73 more CWEs across 30 existing test cases (native/memory-safety findings under ISSAF-ASSESS and NIST-ATTACK, plus injection/auth/crypto/DoS/permissions/resource-lifecycle variants folded into their closest existing WSTG test case) to reach 130/130.
+- **Coverage rebalanced across all 8 active methodologies**, not just WSTG — the View-1003 push initially concentrated almost everything into WSTG/ISSAF/NIST. Added domain-appropriate follow-up CWEs to the others: MASTG 27→34 (local SQLi, weak randomness, unprotected credential storage, mobile XXE, open-redirect deep links, unsigned dynamic code loading, JTAG debug access), OSSTMM 6→12 (doubled — one per channel had zero CWE-backed vulnerability before), PTES 14→19, OWASP IoT 12→16, ICS/OT 9→14 (segmentation exposure, unauthenticated control commands, HMI credential storage, untrusted PLC logic, single-factor remote access).
+- One methodology note: fetching MITRE's CWE-1003 page via a page-summarizing tool silently truncated past a certain length and, when asked to continue, fabricated a plausible-looking but fake continuation (duplicate titles gave it away). The actual 130-member list was only obtained reliably by downloading the raw HTML and parsing it programmatically — a caution for any future catalog work that leans on web-fetched enumerations.
 
 ### Graph
 - **Layered, top-to-bottom layout** (topological sort / longest-path-from-root by referencer→referenced direction: page → finding/evidence/asset, finding → evidence/asset) — replaced the earlier force-directed/circular layout.
@@ -85,6 +89,9 @@ Living document. Updated whenever a feature area is audited or changed. Organize
 11. Evidence redaction (canvas tool, immutable derived copies); global Asset list + CRUD; `CweCategoryPicker` reused for manually-created Findings' category field.
 12. CWE mapping search enhanced (searches description too, shows source methodologies); further catalog depth pass + 4-mapping accuracy fix against cwe.mitre.org; destructive-action confirmation dialogs; toast notification system.
 13. Fixed a Vulnerability Note left in a stale "Promoted" state (broken link) after its Finding was deleted — now detects the deletion live and offers to unlink/re-edit.
+14. Generated a proper app icon (notebook + pentest-shield motif, dark/emerald theme) via SVG → `tauri icon`, replacing the default Tauri/Vite placeholders (icon, favicon, window title); required a full `cargo clean -p pwndesk` rebuild since Tauri embeds the icon into the Windows binary at compile time and a plain `cargo run` reused the cached build without re-embedding it.
+15. Closed the CWE Top 25 (2025) gap entirely and raised CWE View-1003 coverage from 43.8% to 100% (73 more CWEs across 30 existing test cases).
+16. Rebalanced CWE depth across all methodologies (not just WSTG): MASTG, OSSTMM, PTES, OWASP IoT, and ICS/OT each gained several domain-appropriate CWEs.
 
 ## 3. Known gaps (intentionally not addressed)
 
