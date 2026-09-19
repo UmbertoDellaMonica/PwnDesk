@@ -3,6 +3,7 @@ import { ensureDir, readBinaryFile, writeBinaryFile } from "../../platform/fs";
 import { getEvidenceBySha256, insertEvidence } from "./evidence.repository";
 import { getEvidenceFilePath, getEvidenceShardDir } from "./evidence.paths";
 import type { Evidence } from "./evidence.types";
+import type { JsonValue } from "../../shared/types";
 
 export async function sha256Hex(blob: Blob): Promise<string> {
   const buffer = await blob.arrayBuffer();
@@ -18,6 +19,7 @@ async function storeAndInsert(
   blob: Blob,
   originalName: string | null,
   derivedFromId: string | null,
+  data?: Record<string, JsonValue>,
 ): Promise<Evidence> {
   const sha256 = await sha256Hex(blob);
 
@@ -38,6 +40,7 @@ async function storeAndInsert(
     originalName,
     derivedFromId,
     capturedAt: new Date().toISOString(),
+    data,
   });
 }
 
@@ -45,8 +48,9 @@ export async function captureEvidence(
   db: Database,
   evidenceDir: string,
   file: Blob & { name?: string },
+  data?: Record<string, JsonValue>,
 ): Promise<Evidence> {
-  return storeAndInsert(db, evidenceDir, file, file.name ?? null, null);
+  return storeAndInsert(db, evidenceDir, file, file.name ?? null, null, data);
 }
 
 /**

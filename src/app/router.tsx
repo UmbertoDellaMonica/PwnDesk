@@ -9,6 +9,7 @@ import { FindingsListPage } from "./pages/FindingsListPage";
 import { GraphPage } from "./pages/GraphPage";
 import { PageView } from "./pages/PageView";
 import { ProjectHome } from "./pages/ProjectHome";
+import { ScreenshotGalleryPage } from "./pages/ScreenshotGalleryPage";
 
 export const router = createHashRouter([
   {
@@ -19,6 +20,7 @@ export const router = createHashRouter([
       { path: "projects/:projectId", element: <ProjectHome /> },
       { path: "projects/:projectId/pages/:pageId", element: <PageView /> },
       { path: "projects/:projectId/evidence", element: <EvidenceGalleryPage /> },
+      { path: "projects/:projectId/screenshots", element: <ScreenshotGalleryPage /> },
       { path: "projects/:projectId/findings", element: <FindingsListPage /> },
       { path: "projects/:projectId/findings/:findingId", element: <FindingDetailPage /> },
       { path: "projects/:projectId/assets", element: <AssetsListPage /> },

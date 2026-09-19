@@ -62,6 +62,12 @@ export function PageTreeSidebar() {
             Evidence
           </Link>
           <Link
+            to={`/projects/${entry.id}/screenshots`}
+            className="text-xs text-neutral-500 hover:text-neutral-300"
+          >
+            Screenshots
+          </Link>
+          <Link
             to={`/projects/${entry.id}/assets`}
             className="text-xs text-neutral-500 hover:text-neutral-300"
           >

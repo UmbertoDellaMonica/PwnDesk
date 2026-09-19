@@ -39,7 +39,7 @@ export function EvidenceGridItem({ entry, evidence, onClick }: EvidenceGridItemP
       onClick={onClick}
       className="flex flex-col items-center justify-center gap-1 rounded-md border border-neutral-800 bg-neutral-900/40 p-2 hover:border-neutral-600"
     >
-      <div className="flex h-20 w-full items-center justify-center overflow-hidden rounded bg-neutral-800">
+      <div className="flex h-36 w-full items-center justify-center overflow-hidden rounded bg-neutral-800">
         {isImage && thumbUrl ? (
           <img src={thumbUrl} alt={evidence.originalName ?? ""} className="h-full w-full object-cover" />
         ) : (

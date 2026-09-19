@@ -63,14 +63,16 @@ export async function insertEvidence(
     originalName: string | null;
     derivedFromId: string | null;
     capturedAt: string;
+    data?: Record<string, JsonValue>;
   },
 ): Promise<Evidence> {
   const id = newId();
   const now = new Date().toISOString();
+  const data = input.data ?? {};
   await db.execute(
     `INSERT INTO evidence
       (id, sha256, mime_type, byte_size, original_name, derived_from_id, captured_at, created_at, is_deleted, data)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 0, '{}')`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 0, $9)`,
     [
       id,
       input.sha256,
@@ -80,6 +82,7 @@ export async function insertEvidence(
       input.derivedFromId,
       input.capturedAt,
       now,
+      JSON.stringify(data),
     ],
   );
   return {
@@ -92,7 +95,7 @@ export async function insertEvidence(
     capturedAt: input.capturedAt,
     createdAt: now,
     isDeleted: false,
-    data: {},
+    data,
   };
 }
 

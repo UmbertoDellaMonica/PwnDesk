@@ -34,24 +34,20 @@ export function EvidenceGallery({ entry, pickMode, initialPreviewId }: EvidenceG
   }, [initialPreviewId, evidenceList !== undefined]);
 
   const captureFiles = (files: FileList | File[]) => {
-    console.log("[evidence] captureFiles called with", files.length, "file(s)");
     setCaptureError(null);
     for (const file of Array.from(files)) {
-      console.log("[evidence] dispatching capture for", file.name, file.type, file.size);
       setPendingUploads((count) => count + 1);
-      captureEvidence.mutate(file, {
-        onSettled: () => setPendingUploads((count) => count - 1),
-        onSuccess: () => console.log("[evidence] capture succeeded for", file.name),
-        onError: (error) => {
-          console.error("[evidence] capture failed for", file.name, error);
-          setCaptureError(errorMessage(error));
+      captureEvidence.mutate(
+        { file },
+        {
+          onSettled: () => setPendingUploads((count) => count - 1),
+          onError: (error) => setCaptureError(errorMessage(error)),
         },
-      });
+      );
     }
   };
 
   const handlePaste = (event: React.ClipboardEvent) => {
-    console.log("[evidence] paste event fired");
     const items = Array.from(event.clipboardData.items);
     const files = items
       .filter((item) => item.kind === "file")
@@ -61,7 +57,6 @@ export function EvidenceGallery({ entry, pickMode, initialPreviewId }: EvidenceG
   };
 
   const handleDrop = (event: React.DragEvent) => {
-    console.log("[evidence] drop event fired,", event.dataTransfer.files.length, "file(s)");
     event.preventDefault();
     setIsDragOver(false);
     if (event.dataTransfer.files.length > 0) captureFiles(event.dataTransfer.files);
@@ -100,10 +95,7 @@ export function EvidenceGallery({ entry, pickMode, initialPreviewId }: EvidenceG
           variant="secondary"
           className="text-xs"
           disabled={pendingUploads > 0}
-          onClick={() => {
-            console.log("[evidence] Browse clicked, input ref:", fileInputRef.current);
-            fileInputRef.current?.click();
-          }}
+          onClick={() => fileInputRef.current?.click()}
         >
           {pendingUploads > 0 ? "Uploading…" : "Browse"}
         </Button>
@@ -113,7 +105,6 @@ export function EvidenceGallery({ entry, pickMode, initialPreviewId }: EvidenceG
           multiple
           className="hidden"
           onChange={(event) => {
-            console.log("[evidence] input onChange fired,", event.target.files?.length ?? 0, "file(s)");
             if (event.target.files) captureFiles(event.target.files);
             event.target.value = "";
           }}

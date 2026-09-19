@@ -47,10 +47,16 @@ export function useCaptureEvidence(entry: CatalogEntry | null) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (file: Blob & { name?: string }) => {
+    mutationFn: async ({
+      file,
+      initialData,
+    }: {
+      file: Blob & { name?: string };
+      initialData?: Record<string, JsonValue>;
+    }) => {
       if (!entry) throw new Error("No active project");
       const db = await openProjectDb(dbPathFor(entry));
-      return captureEvidence(db, evidenceDirFor(entry), file);
+      return captureEvidence(db, evidenceDirFor(entry), file, initialData);
     },
     onError: (error) => console.error("Failed to capture evidence", error),
     onSuccess: () => {

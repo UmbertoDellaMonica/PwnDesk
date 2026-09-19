@@ -11,9 +11,14 @@ import { usePages } from "../../page/usePages";
 import type { CatalogEntry } from "../../workspace/workspace.types";
 import { readEvidenceBlob } from "../evidence.service";
 import type { Evidence } from "../evidence.types";
-import { useDeleteEvidence, useDerivedEvidence, useEvidenceById } from "../useEvidence";
+import {
+  useDeleteEvidence,
+  useDerivedEvidence,
+  useEvidenceById,
+  useUpdateEvidenceData,
+} from "../useEvidence";
+import { AnnotateEvidenceModal } from "./AnnotateEvidenceModal";
 import { EvidenceClassificationPanel } from "./EvidenceClassificationPanel";
-import { RedactEvidenceModal } from "./RedactEvidenceModal";
 
 interface EvidencePreviewModalProps {
   entry: CatalogEntry;
@@ -25,13 +30,15 @@ export function EvidencePreviewModal({ entry, evidence, onClose }: EvidencePrevi
   const isImage = evidence?.mimeType.startsWith("image/") ?? false;
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const deleteEvidence = useDeleteEvidence(entry);
+  const updateEvidenceData = useUpdateEvidenceData(entry);
   const { data: referencingFindings } = useFindingsForEvidence(entry, evidence?.id);
   const { data: pages } = usePages(entry);
   const { data: derivedCopies } = useDerivedEvidence(entry, evidence?.id);
   const { data: derivedFrom } = useEvidenceById(entry, evidence?.derivedFromId ?? undefined);
   const [showLinkPicker, setShowLinkPicker] = useState(false);
-  const [showRedactModal, setShowRedactModal] = useState(false);
+  const [showAnnotateModal, setShowAnnotateModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const isScreenshot = evidence?.data.category === "screenshot";
   const referencingPages = evidence
     ? findPagesReferencingTarget(pages ?? [], "evidence", evidence.id)
     : [];
@@ -68,12 +75,30 @@ export function EvidencePreviewModal({ entry, evidence, onClose }: EvidencePrevi
     onClose();
   };
 
+  const handleToggleScreenshot = () => {
+    if (!evidence) return;
+    const { category: _category, ...rest } = evidence.data;
+    updateEvidenceData.mutate({
+      id: evidence.id,
+      data: isScreenshot ? rest : { ...evidence.data, category: "screenshot" },
+    });
+  };
+
   return (
-    <Modal open={evidence !== null} title={evidence?.originalName ?? "Evidence"} onClose={onClose}>
+    <Modal
+      open={evidence !== null}
+      title={evidence?.originalName ?? "Evidence"}
+      onClose={onClose}
+      size={isImage ? "xl" : "md"}
+    >
       {evidence && (
         <div className="space-y-3">
           {isImage && previewUrl && (
-            <img src={previewUrl} alt={evidence.originalName ?? ""} className="max-h-80 w-full rounded object-contain" />
+            <img
+              src={previewUrl}
+              alt={evidence.originalName ?? ""}
+              className="max-h-[70vh] w-full rounded bg-neutral-950 object-contain"
+            />
           )}
           <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs text-neutral-400">
             <dt>SHA-256</dt>
@@ -94,7 +119,7 @@ export function EvidencePreviewModal({ entry, evidence, onClose }: EvidencePrevi
 
           {(derivedCopies?.length ?? 0) > 0 && (
             <div>
-              <p className="mb-1 text-xs font-medium text-neutral-400">Redacted / derived copies</p>
+              <p className="mb-1 text-xs font-medium text-neutral-400">Annotated / derived copies</p>
               <ul className="space-y-0.5">
                 {derivedCopies?.map((copy) => (
                   <li key={copy.id} className="text-xs text-neutral-400">
@@ -141,8 +166,13 @@ export function EvidencePreviewModal({ entry, evidence, onClose }: EvidencePrevi
 
           <div className="flex justify-end gap-2 pt-2">
             {isImage && (
-              <Button variant="secondary" onClick={() => setShowRedactModal(true)}>
-                Redact…
+              <Button variant="secondary" onClick={handleToggleScreenshot}>
+                {isScreenshot ? "Unmark screenshot" : "Mark as screenshot"}
+              </Button>
+            )}
+            {isImage && (
+              <Button variant="secondary" onClick={() => setShowAnnotateModal(true)}>
+                Annotate…
               </Button>
             )}
             <Button variant="secondary" onClick={() => setShowLinkPicker(true)}>
@@ -163,14 +193,14 @@ export function EvidencePreviewModal({ entry, evidence, onClose }: EvidencePrevi
             onClose={() => setShowLinkPicker(false)}
           />
           {isImage && (
-            <RedactEvidenceModal
-              open={showRedactModal}
+            <AnnotateEvidenceModal
+              open={showAnnotateModal}
               entry={entry}
               evidence={evidence}
-              onClose={() => setShowRedactModal(false)}
+              onClose={() => setShowAnnotateModal(false)}
               onSaved={() => {
-                setShowRedactModal(false);
-                showToast("Saved redacted copy");
+                setShowAnnotateModal(false);
+                showToast("Saved annotated copy");
               }}
             />
           )}

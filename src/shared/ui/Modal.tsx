@@ -25,7 +25,7 @@ export function Modal({ open, title, onClose, children, size = "md" }: ModalProp
       onClick={onClose}
     >
       <div
-        className={`bg-neutral-900 border border-neutral-700 rounded-lg shadow-xl w-full p-5 ${sizeClasses[size]}`}
+        className={`bg-neutral-900 border border-neutral-700 rounded-lg shadow-xl w-full max-h-[90vh] overflow-y-auto p-5 ${sizeClasses[size]}`}
         onClick={(event) => event.stopPropagation()}
       >
         <h2 className="text-lg font-semibold text-neutral-100 mb-4">{title}</h2>
