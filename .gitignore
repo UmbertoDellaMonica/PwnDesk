@@ -36,4 +36,4 @@ src-tauri/target
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.sw?AUDIT.md

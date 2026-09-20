@@ -130,13 +130,11 @@ export function CaptureScreenshotModal({ open, entry, onClose }: CaptureScreensh
     }
   };
 
-  // Delegates region selection entirely to Windows' own Snip & Sketch tool
-  // (same UI as PrtScn / Win+Shift+S) instead of a custom overlay window —
-  // building that ourselves hung the app (window creation/destruction has to
-  // happen on the thread owning the message loop, and that still didn't
-  // fully resolve it). Snip & Sketch copies the selection to the clipboard
-  // when the user finishes dragging, so we just poll for a change from
-  // whatever was on the clipboard before we launched it.
+  // Delegates region selection to Windows' own Snip & Sketch tool (same UI as
+  // PrtScn / Win+Shift+S) instead of a custom overlay window. Snip & Sketch
+  // copies the selection to the clipboard when the user finishes dragging, so
+  // this just polls for a change from whatever was on the clipboard before
+  // launching it.
   const handleSelectArea = async () => {
     setError(null);
     try {

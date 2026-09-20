@@ -83,14 +83,12 @@ pub fn capture_target(kind: String, id: String) -> Result<Vec<u8>, String> {
     Ok(bytes)
 }
 
-// Region selection is delegated entirely to Windows' own Snip & Sketch tool
-// (the same UI bound to PrtScn / Win+Shift+S) rather than a custom
-// always-on-top transparent Tauri window — building that ourselves hung the
-// app's message loop (window creation/destruction on Windows must run on the
-// thread that owns the message pump, and marshalling it there with
-// run_on_main_thread still didn't resolve it in testing). Snip & Sketch
-// copies the selected region to the clipboard when the user finishes
-// dragging, so the frontend polls for that instead of us owning any UI here.
+// Region selection is delegated to Windows' own Snip & Sketch tool (the same
+// UI bound to PrtScn / Win+Shift+S) instead of a custom overlay window, since
+// window creation/destruction must run on the thread owning the message pump
+// and a custom overlay adds native-window complexity for no real benefit here.
+// Snip & Sketch copies the selected region to the clipboard when the user
+// finishes dragging, so the frontend polls for that instead.
 #[tauri::command]
 pub fn trigger_native_snip() -> Result<(), String> {
     std::process::Command::new("cmd")

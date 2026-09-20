@@ -2,6 +2,9 @@
   "name": "pwndesk",
   "private": true,
   "version": "0.1.0",
+  "description": "A penetration-test knowledge workbench: free-form notes and structured pentest objects (assets, evidence, findings) in one local-first desktop app.",
+  "license": "Apache-2.0",
+  "author": "Umberto Della Monica",
   "type": "module",
   "scripts": {
     "dev": "vite",
