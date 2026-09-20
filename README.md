@@ -1,4 +1,8 @@
-# PwnDesk
+<p align="center">
+  <img src="src-tauri/icons/icon.png" alt="PwnDesk logo" width="140">
+</p>
+
+<h1 align="center">PwnDesk</h1>
 
 PwnDesk is a **penetration-test knowledge workbench** — a desktop app for organizing engagement notes, evidence, and findings in one place instead of scattering them across a text editor, a screenshot folder, and a report template.
 
